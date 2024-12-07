@@ -4,7 +4,9 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, ArrowLeft } from "@phosphor-icons/react";
+import NumberFlow, { type Value } from "@number-flow/react";
 import Marquee from "./ui/marquee";
+import { linearGradient } from "framer-motion/client";
 
 const HeroSection = () => {
   const images = [
@@ -87,7 +89,9 @@ const HeroSection = () => {
                   src={images[currentIndex]}
                   alt="Image of Furniture"
                   fill
-                  style={{ objectFit: "cover" }}
+                  style={{
+                    objectFit: "cover",
+                  }}
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   priority={currentIndex === 0}
                 />
@@ -104,7 +108,7 @@ const HeroSection = () => {
           </button>
 
           <span className="font-medium min-w-[20px] text-center">
-            {currentIndex + 1}
+            <NumberFlow value={currentIndex + 1} />
           </span>
 
           <button onClick={handleNext} aria-label="Next image">
