@@ -1,12 +1,9 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, ArrowLeft } from "@phosphor-icons/react";
-import NumberFlow, { type Value } from "@number-flow/react";
+import NumberFlow from "@number-flow/react";
 import Marquee from "./ui/marquee";
-import { linearGradient } from "framer-motion/client";
 
 const HeroSection = () => {
   const images = [
@@ -40,7 +37,7 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <div className="relative w-full h-[400px] md:h-[632px]">
+    <div className="relative w-full h-[400px] md:h-[632px] overflow-hidden">
       <div className="absolute hidden md:block top-3 w-[295px] -z-10">
         <Marquee />
       </div>
@@ -55,66 +52,55 @@ const HeroSection = () => {
         </defs>
       </svg>
 
+      <div className="absolute h-full p-10 flex items-end ">
+        <div className="flex flex-col gap-6 max-w-[194px]  md:max-w-xs z-20  rounded-lg">
+          <h1 className="text-2xl leading-6 md:text-4xl  md:leading-9">
+            Shop beautiful furniture & style your home today!
+          </h1>
+          <button className="flex items-center gap-4 bg-white text-black px-6 py-3 rounded-xl w-fit hover:bg-gray-100 transition-colors font-medium">
+            Shop now
+            <ArrowRight />
+          </button>
+        </div>
+      </div>
+
       <div
-        className="w-full h-full rounded-3xl overflow-hidden"
+        className="w-full h-full rounded-3xl overflow-hidden relative"
         style={{
           clipPath: `url(#${
             isMobile ? "hero-mask-mobile" : "hero-mask-desktop"
           })`,
-          background: "#F5F5F5",
         }}
       >
-        <div className="relative h-full p-6 flex items-end">
-          <div className="flex flex-col gap-6 max-w-[194px]  md:max-w-xs z-20">
-            <h1 className="text-2xl leading-6 md:text-4xl  md:leading-9">
-              A perfect blend of softness and style for any corner of your home.
-            </h1>
-            <button className="flex items-center gap-4 bg-white text-black px-6 py-3 rounded-xl w-fit hover:bg-gray-100 transition-colors font-medium">
-              Shop now
-              <ArrowRight />
-            </button>
-          </div>
-          <div className="absolute right-0 top-0 z-10 w-full h-full overflow-hidden bg-gradient-to-tr from-[#FFF8E7] via-[#FFF8E7]/20 to-transparent"></div>
-          <div className="absolute right-0 top-0 w-full h-full overflow-hidden">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentIndex}
-                initial={{ x: 300, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                exit={{ x: -300, opacity: 0 }}
-                transition={{ duration: 0.5, ease: "easeInOut" }}
-                className="relative w-full h-full"
-              >
-                <Image
-                  src={images[currentIndex]}
-                  alt="Image of Furniture"
-                  fill
-                  style={{
-                    objectFit: "cover",
-                  }}
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  priority={currentIndex === 0}
-                />
-              </motion.div>
-            </AnimatePresence>
-          </div>
+        <div className="absolute z-10 h-full w-full bg-gradient-to-tr from-[#EFEFEF]"></div>
+
+        <div
+          className="flex transition-transform duration-1000 ease-cubic-in h-full"
+          style={{
+            transform: `translateX(-${currentIndex * 100}%)`,
+          }}
+        >
+          {images.map((src, index) => (
+            <img
+              key={index}
+              src={src}
+              alt={`Image ${index + 1}`}
+              className="w-full h-full object-cover flex-shrink-0 hover:scale-105 transition-transform duration-1000 ease-cubic-in"
+            />
+          ))}
         </div>
       </div>
 
-      <div className="absolute hidden md:block bottom-0 right-0 w-[170px] h-[71px]">
-        <div className="bg-[#ededed] rounded-3xl p-4 flex items-center justify-around gap-3 h-full mx-auto">
-          <button onClick={handlePrevious} aria-label="Previous image">
-            <ArrowLeft weight="bold" className="w-4 h-4" />
-          </button>
-
-          <span className="font-medium min-w-[20px] text-center">
-            <NumberFlow value={currentIndex + 1} />
-          </span>
-
-          <button onClick={handleNext} aria-label="Next image">
-            <ArrowRight weight="bold" className="w-4 h-4" />
-          </button>
-        </div>
+      <div className=" hidden absolute bottom-0 right-0 w-[170px] h-[71px] md:flex items-center justify-around bg-[#ededed] rounded-3xl p-4 mx-auto">
+        <button onClick={handlePrevious} aria-label="Previous image">
+          <ArrowLeft weight="bold" className="w-4 h-4" />
+        </button>
+        <span className="font-medium min-w-[20px] text-center">
+          <NumberFlow value={currentIndex + 1} />
+        </span>
+        <button onClick={handleNext} aria-label="Next image">
+          <ArrowRight weight="bold" className="w-4 h-4" />
+        </button>
       </div>
     </div>
   );

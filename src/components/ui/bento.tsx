@@ -6,8 +6,9 @@ import living from "/public/images/category-living.png";
 import dining from "/public/images/category-dining.png";
 import bedroom from "/public/images/category-bed.png";
 import office from "/public/images/category-office.png";
+import { ArrowRight } from "@phosphor-icons/react";
 
-export function BentoGridDemo() {
+export function BentoGridLayout() {
   return (
     <BentoGrid className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-4">
       {items.map((item, i) => (

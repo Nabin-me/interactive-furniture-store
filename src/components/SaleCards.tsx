@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { ArrowUpRight } from "@phosphor-icons/react";
 import { motion } from "framer-motion";
@@ -17,106 +17,106 @@ interface CardData {
 const CARD_DATA: CardData[] = [
   {
     id: "left",
-    title: "Modern Sofa",
-    description:
-      "Sleek, minimalist design for ultimate productivity and comfort",
-    price: 250.0,
+    title: "Lounge Special Furniture",
+    description: "Elegant, modern design for unmatched comfort and style.",
+    price: 550.0,
     imageSrc: "/images/hero-2.jpg",
   },
   {
     id: "center",
-    title: "Modern Sofa",
+    title: "Urban Chic Chair",
     description:
-      "Sleek, minimalist design for ultimate productivity and comfort",
-    price: 250.0,
-    imageSrc: "/images/hero-2.jpg",
+      "Bold, contemporary design crafted for elegance and modern versatility.",
+    price: 999.0,
+    imageSrc: "/images/feature-card-3.png",
   },
   {
     id: "right",
     title: "Modern Sofa",
     description:
       "Sleek, minimalist design for ultimate productivity and comfort",
-    price: 250.0,
-    imageSrc: "/images/hero-2.jpg",
+    price: 390.0,
+    imageSrc: "/images/feature-card.png",
   },
 ];
 
 const SaleCards: React.FC = () => {
   const [focusedCard, setFocusedCard] = useState<string | null>(null);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  // Handle resizing for responsive logic
+  useEffect(() => {
+    const handleResize = () => setIsDesktop(window.innerWidth > 768);
+    handleResize(); // Check on initial render
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // Variant configuration for animations
   const cardVariants = {
     initial: (cardId: string) => ({
       scale: cardId === "center" ? 1.025 : 0.9,
       rotate: cardId === "left" ? -2 : cardId === "right" ? 2 : 0,
-      opacity: 1,
       zIndex: cardId === "center" ? 10 : 1,
-      boxShadow: "0",
+      boxShadow:
+        cardId === "center" ? "0px 0px 35px 0px rgba(0, 0, 0, 0.15)" : "0",
     }),
-    hover: (cardId: string) => {
-      const rotateValue = cardId === "left" ? 0 : cardId === "right" ? 0 : 0;
-      return {
-        scale: 1.025,
-        rotate: rotateValue,
-        opacity: 1,
-        zIndex: 20,
-        boxShadow: "soft-lg",
-      };
+    hover: {
+      scale: 1.025,
+      rotate: 0,
+      zIndex: 20,
+      boxShadow: "0px 0px 35px 0px rgba(0, 0, 0, 0.15)",
     },
-    nonFocused: (cardId: string) => {
-      let rotateValue;
-      switch (focusedCard) {
-        case "left":
-          rotateValue = 2;
-          break;
-        case "right":
-          rotateValue = -2;
-          break;
-        default:
-          rotateValue = cardId === "left" ? -2 : cardId === "right" ? 2 : 0;
-      }
-
-      return {
-        scale: 0.9,
-        rotate: rotateValue,
-        opacity: 0.7,
-        zIndex: 1,
-        boxShadow: "0",
-      };
+    nonFocused: (cardId: string) => ({
+      scale: 0.9,
+      rotate: cardId === "left" ? -2 : cardId === "right" ? 2 : 0,
+      zIndex: cardId === "center" ? 10 : 1,
+      boxShadow:
+        cardId === "center" ? "0px 0px 35px 0px rgba(0, 0, 0, 0.15)" : "0",
+    }),
+    mobile: {
+      scale: 1,
+      rotate: 0,
+      zIndex: 1,
+      boxShadow: "0",
     },
   };
 
   return (
-    <div className="container mx-auto px-4 py-12">
+    <div className="mx-auto mt-20">
       {/* Title Section */}
       <div className="text-center mb-12">
-        <h6 className="text-sm tracking-widest uppercase text-gray-500">
-          Popular
-        </h6>
-        <h1 className="text-4xl font-medium">Furniture Sales Now On!</h1>
+        <h6 className="text-sm tracking-widest uppercase mb-3">Popular</h6>
+        <h1 className="text-4xl font-medium">Furniture sales now on!</h1>
       </div>
 
       {/* Card Container */}
-      <div className="flex justify-center items-center space-x-[-2rem] relative">
+      <div className="flex flex-col gap-6 md:gap-0 md:flex-row justify-center items-center md:space-x-[-4rem] relative">
         {CARD_DATA.map((card) => (
           <motion.div
             key={card.id}
-            className="relative p-6 bg-[#E8E8E8] rounded-2xl"
+            className="relative p-6 bg-[#fafafa] rounded-2xl cursor-pointer flex-shrink-0"
             initial="initial"
             animate={
-              focusedCard === card.id
-                ? "hover"
-                : focusedCard
-                ? "nonFocused"
-                : "initial"
+              isDesktop
+                ? focusedCard === card.id
+                  ? "hover"
+                  : focusedCard
+                  ? "nonFocused"
+                  : "initial"
+                : "mobile"
             }
+            transition={{
+              duration: 0.8,
+              ease: [0.6, 0.6, 0, 1],
+            }}
             variants={cardVariants}
             custom={card.id}
             onHoverStart={() => setFocusedCard(card.id)}
             onHoverEnd={() => setFocusedCard(null)}
           >
             {/* Card Content */}
-            <div className="space-y-6">
+            <div className="space-y-6 w-full md:w-[400px]">
               <span className="inline-block bg-white px-3 py-1 rounded-full text-sm">
                 Exclusive
               </span>
@@ -130,8 +130,8 @@ const SaleCards: React.FC = () => {
               />
 
               <div>
-                <h2 className="text-3xl">{card.title}</h2>
-                <p className="max-w-56 mt-2 text-gray-600 ">
+                <h2 className="text-2xl">{card.title}</h2>
+                <p className="max-w-56 mt-2 text-gray-600">
                   {card.description}
                 </p>
               </div>

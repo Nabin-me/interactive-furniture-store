@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { ArrowRight } from "@phosphor-icons/react";
 
 export const BentoGrid = ({
   className,
@@ -35,7 +36,7 @@ export const BentoGridItem = ({
   return (
     <div
       className={cn(
-        "rounded-xl group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none p-4  dark:bg-black dark:border-white/[0.2] bg-[#F8F8F8] border border-transparent justify-between flex flex-col space-y-4",
+        "rounded-xl group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none p-4 cursor-pointer dark:bg-black dark:border-white/[0.2] bg-[#F8F8F8] border border-transparent justify-between flex flex-col space-y-4",
         className
       )}
     >

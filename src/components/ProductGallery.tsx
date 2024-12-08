@@ -1,5 +1,8 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useRef } from "react";
 import Image, { StaticImageData } from "next/image";
+import { motion, useAnimation, useInView } from "framer-motion";
 
 // Static imports for images
 import gridImage0 from "../../public/images/grid-image-0.png";
@@ -20,17 +23,28 @@ interface ImageItemProps {
   src: StaticImageData;
   alt: string;
   className?: string;
+  index: number;
 }
 
-const ImageItem: React.FC<ImageItemProps> = ({ src, alt, className = "" }) => (
-  <div className={`overflow-hidden rounded-lg h-full  ${className}`}>
+const ImageItem: React.FC<ImageItemProps> = ({
+  src,
+  alt,
+  className = "",
+  index,
+}) => (
+  <motion.div
+    className={`overflow-hidden rounded-lg h-full ${className}`}
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5, delay: index * 0.1 }}
+  >
     <Image
       src={src}
       alt={alt}
       className="object-cover w-full h-full"
       placeholder="blur"
     />
-  </div>
+  </motion.div>
 );
 
 const imageData = [
@@ -50,30 +64,59 @@ const imageData = [
 ];
 
 const ProductGallery: React.FC = () => {
+  const controls = useAnimation();
+  const containerRef = useRef(null);
+  const inView = useInView(containerRef, { margin: "-10% 0px", once: true });
+
+  useEffect(() => {
+    if (inView) {
+      controls.start("visible");
+    }
+  }, [inView, controls]);
+
   return (
-    <section className="my-40">
+    <section className="my-30">
       {/* Grid Title */}
-      <div className="mb-6">
+      <motion.div
+        className="mb-6"
+        initial={{ opacity: 0, y: 20 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.5 }}
+      >
         <h1 className="text-[40px] tracking-tighter max-w-[600px] leading-tight">
-          We meticulously curate our{" "}
-          <span className="text-[#898989]">products selections</span> to ensure
-          you receive only the best
+          <motion.span>We meticulously curate our </motion.span>
+          <motion.span className="text-[#898989]">
+            products selections
+          </motion.span>
+          <motion.span> to ensure you receive only the best</motion.span>
         </h1>
-      </div>
+      </motion.div>
 
       {/* Product Gallery */}
-      <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
+      <motion.div
+        ref={containerRef}
+        className="grid grid-cols-2 md:grid-cols-6 gap-4"
+        initial="hidden"
+        animate={controls}
+        variants={{
+          hidden: { opacity: 0, y: 20 },
+          visible: { opacity: 1, y: 0 },
+        }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+      >
         {/* First column */}
         <div className="grid grid-rows-4 gap-4 max-h-[528px]">
           <ImageItem
             src={imageData[0].src}
             alt={imageData[0].alt}
             className="row-span-2"
+            index={0}
           />
           <ImageItem
             src={imageData[1].src}
             alt={imageData[1].alt}
             className="row-span-2"
+            index={1}
           />
         </div>
 
@@ -83,11 +126,13 @@ const ProductGallery: React.FC = () => {
             src={imageData[2].src}
             alt={imageData[2].alt}
             className="row-span-1"
+            index={2}
           />
           <ImageItem
             src={imageData[3].src}
             alt={imageData[3].alt}
             className="row-span-2"
+            index={3}
           />
         </div>
 
@@ -97,11 +142,13 @@ const ProductGallery: React.FC = () => {
             src={imageData[4].src}
             alt={imageData[4].alt}
             className="row-span-4"
+            index={4}
           />
           <ImageItem
             src={imageData[5].src}
             alt={imageData[5].alt}
             className="row-span-7"
+            index={5}
           />
         </div>
 
@@ -111,11 +158,13 @@ const ProductGallery: React.FC = () => {
             src={imageData[6].src}
             alt={imageData[6].alt}
             className="row-span-6"
+            index={6}
           />
           <ImageItem
             src={imageData[7].src}
             alt={imageData[7].alt}
             className="row-span-4"
+            index={7}
           />
         </div>
 
@@ -125,21 +174,35 @@ const ProductGallery: React.FC = () => {
             src={imageData[8].src}
             alt={imageData[8].alt}
             className="row-span-3"
+            index={8}
           />
           <ImageItem
             src={imageData[9].src}
             alt={imageData[9].alt}
             className="row-span-2"
+            index={9}
           />
         </div>
 
         {/* Sixth column */}
         <div className="grid grid-rows-3 gap-4 max-h-[528px]">
-          <ImageItem src={imageData[10].src} alt={imageData[10].alt} />
-          <ImageItem src={imageData[11].src} alt={imageData[11].alt} />
-          <ImageItem src={imageData[12].src} alt={imageData[12].alt} />
+          <ImageItem
+            src={imageData[10].src}
+            alt={imageData[10].alt}
+            index={10}
+          />
+          <ImageItem
+            src={imageData[11].src}
+            alt={imageData[11].alt}
+            index={11}
+          />
+          <ImageItem
+            src={imageData[12].src}
+            alt={imageData[12].alt}
+            index={12}
+          />
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };

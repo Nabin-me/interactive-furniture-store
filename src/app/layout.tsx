@@ -4,6 +4,9 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Furniche | Home Furnishing",
+  icons: {
+    icon: "favicon.ico",
+  },
   description: "Get the best deals on home furnishing products",
 };
 
@@ -14,7 +17,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${GeistSans.className} antialiased`}>{children}</body>
+      <body
+        suppressHydrationWarning={true}
+        className={`${GeistSans.className} antialiased`}
+      >
+        {children}
+      </body>
     </html>
   );
 }
