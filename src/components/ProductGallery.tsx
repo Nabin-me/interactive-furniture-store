@@ -84,11 +84,11 @@ const ProductGallery: React.FC = () => {
         transition={{ duration: 0.5 }}
       >
         <h1 className="text-[40px] tracking-tighter max-w-[600px] leading-tight">
-          <motion.span>We meticulously curate our </motion.span>
-          <motion.span className="text-[#898989]">
-            products selections
+          <motion.span className="text-[#707070]">
+            Our curated product collections are designed to deliver only the{" "}
           </motion.span>
-          <motion.span> to ensure you receive only the best</motion.span>
+          <motion.span className="">finest quality.</motion.span>
+          {/* <motion.span> to ensure you receive only the best</motion.span> */}
         </h1>
       </motion.div>
 

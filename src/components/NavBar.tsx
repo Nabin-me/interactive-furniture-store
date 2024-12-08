@@ -116,7 +116,7 @@ const NavBar = () => {
             className={`relative mx-auto flex items-center px-2 py-2 gap-6 rounded-full bg-[#F7F7F7]/80 backdrop-blur-lg ${
               isScrolled
                 ? "w-[500px] duration-300"
-                : "w-[410px] transition-all duration-500 delay-300"
+                : "w-[415px] transition-all duration-500 delay-300"
             } max-w-[90vw]`}
           >
             <div className="flex items-center justify-center w-full">
@@ -163,7 +163,7 @@ const NavBar = () => {
               <div className="flex items-center gap-6">
                 <Link
                   href="/"
-                  className="flex items-center gap-2 px-3 py-2 bg-white rounded-full text-black"
+                  className="flex items-center gap-2 px-3 ml-2 py-2 bg-white rounded-full text-black"
                 >
                   <span className="w-1.5 h-1.5 bg-black rounded-full" />
                   <span className="pl-1">Home</span>

@@ -63,21 +63,21 @@ const ProductHighlight = () => {
           Our Ambitions
         </motion.h6>
         <motion.h1
-          className="text-[40px] max-w-lg leading-10"
+          className="text-[40px] font-medium max-w-lg leading-10 tracking-[-1.6px] mt-1"
           variants={itemVariants}
         >
-          Pioneering innovation and excellence in furniture
+          Leading the way in furniture design and quality
         </motion.h1>
-        <motion.p className="max-w-[538px]" variants={itemVariants}>
-          Striving for excellence in every deal, we are committed to
-          revolutionizing the online shopping experience. Our ambition is to set
-          new standards in quality, customer satisfaction, and sustainability
+        <motion.p className="max-w-[538px] text-black" variants={itemVariants}>
+          Committed to delivering excellence in every interaction, we aim to
+          revolutionize the online shopping experience. Our goal is to set new
+          standards in quality, customer satisfaction, and sustainability.
         </motion.p>
         <motion.button
           className="flex items-center gap-4 bg-[#F6F6F6] text-black px-6 py-3 rounded-xl w-fit hover:bg-gray-200 transition-colors font-medium"
           variants={itemVariants}
         >
-          Shop now
+          Learn more
           <ArrowRight />
         </motion.button>
       </motion.div>

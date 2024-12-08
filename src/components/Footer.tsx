@@ -3,11 +3,9 @@ import { ArrowRight } from "lucide-react";
 import { Input } from "@/components/ui/input";
 
 const LogoSection = () => (
-  <div>
-    <Link href="/" className="text-2xl font-medium">
-      Furniche
-    </Link>
-  </div>
+  <Link href="/" className="text-[32px] -mt-1">
+    Furniche
+  </Link>
 );
 
 const NavSection = ({
@@ -53,7 +51,7 @@ const NewsletterSection = () => (
 const FooterBottom = () => (
   <div className="mt-12 flex flex-col justify-between gap-4 border-t pt-8 text-sm text-muted-foreground md:flex-row">
     <p>Copyright © {new Date().getFullYear()} Furniche. All rights reserved.</p>
-    <p>Site designed and developed by - Nabin Dahal</p>
+    <p>Site designed and developed by - Nabin</p>
   </div>
 );
 

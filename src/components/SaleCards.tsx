@@ -19,7 +19,7 @@ const CARD_DATA: CardData[] = [
     id: "left",
     title: "Lounge Special Furniture",
     description: "Elegant, modern design for unmatched comfort and style.",
-    price: 550.0,
+    price: 5500,
     imageSrc: "/images/hero-2.jpg",
   },
   {
@@ -27,7 +27,7 @@ const CARD_DATA: CardData[] = [
     title: "Urban Chic Chair",
     description:
       "Bold, contemporary design crafted for elegance and modern versatility.",
-    price: 999.0,
+    price: 9999,
     imageSrc: "/images/feature-card-3.png",
   },
   {
@@ -35,7 +35,7 @@ const CARD_DATA: CardData[] = [
     title: "Modern Sofa",
     description:
       "Sleek, minimalist design for ultimate productivity and comfort",
-    price: 390.0,
+    price: 3000,
     imageSrc: "/images/feature-card.png",
   },
 ];
@@ -86,8 +86,10 @@ const SaleCards: React.FC = () => {
     <div className="mx-auto mt-20">
       {/* Title Section */}
       <div className="text-center mb-12">
-        <h6 className="text-sm tracking-widest uppercase mb-3">Popular</h6>
-        <h1 className="text-4xl font-medium">Furniture sales now on!</h1>
+        <h6 className="tracking-widest uppercase ">Popular</h6>
+        <h1 className="text-[40px] font-medium mt-1 tracking-[-1.6px]">
+          Furniture sales now on!
+        </h1>
       </div>
 
       {/* Card Container */}
@@ -138,7 +140,7 @@ const SaleCards: React.FC = () => {
 
               <div className="flex justify-between items-center">
                 <span className="text-xl text-[#494949]">
-                  ${card.price.toFixed(2)}
+                  ${card.price.toLocaleString()}
                 </span>
                 <button className="p-2 bg-white hover:bg-black hover:text-white rounded-full transition-colors">
                   <ArrowUpRight className="w-5 h-5" />

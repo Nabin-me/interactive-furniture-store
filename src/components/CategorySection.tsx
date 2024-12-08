@@ -44,7 +44,7 @@ const CategorySection = () => {
           Category
         </motion.h6>
         <motion.h1
-          className="text-4xl tracking-tighter font-medium mt-1"
+          className="text-[40px] tracking-tighter font-medium mt-1"
           variants={itemVariants}
         >
           Choose your perfect home
